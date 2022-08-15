@@ -1,25 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{ useEffect ,useContext} from 'react';
+import {  Routes,Route,useLocation} from 'react-router-dom';
 
+import './App.css';
+import Sidebar from './components/sidebar/Sidebar';
+import SidebarDrawer from './components/sidebar/SidebarDrawer';
+
+import Expenses from './pages/expenses/Expenses';
+
+import { AppDataContext } from "./context/AppDataContext";
 function App() {
+
+  const location = useLocation();
+  const [data, setData] = useContext(AppDataContext)
+
+ 
+
+useEffect(() => {
+  setData({ type: "closeDrawer" });
+}, [location.pathname]); 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <>
+       
+      <div className="App">
+        
+        <Sidebar />
+        <SidebarDrawer/>
+
+         <Expenses/>
+      </div>
+      
+
+
+
+       <Routes>
+
+        <Route path='/' >
+          {/*<Route path="dashboard" element={<p>dashboard page</p>}/>*/}
+          {/*<Route path="expenses"   element={ <Expenses/>}/>*/}
+          {/*<Route   path="wallets" element={ <p>walllets page</p>}/>*/}
+
+        </Route>
+      </Routes> 
+   
+</>
+    
   );
 }
 
